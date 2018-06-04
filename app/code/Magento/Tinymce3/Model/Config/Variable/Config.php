@@ -3,13 +3,10 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-
-declare(strict_types=1);
 namespace Magento\Tinymce3\Model\Config\Variable;
 
 /**
  * Class Config adds variable plugin information required for tinymce3 editor
- * @deprecated use \Magento\Variable\Model\Variable\ConfigProvider instead
  */
 class Config implements \Magento\Framework\Data\Wysiwyg\ConfigProviderInterface
 {
@@ -41,7 +38,7 @@ class Config implements \Magento\Framework\Data\Wysiwyg\ConfigProviderInterface
      * @param \Magento\Framework\DataObject $config
      * @return \Magento\Framework\DataObject
      */
-    public function getConfig(\Magento\Framework\DataObject $config) : \Magento\Framework\DataObject
+    public function getConfig($config)
     {
         $settings = $this->defaultVariableConfig->getWysiwygPluginSettings($config);
         $pluginConfig = isset($settings['plugins']) ? $settings['plugins'] : [];

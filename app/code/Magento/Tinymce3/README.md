@@ -1,1 +1,3 @@
-We have updated the TinyMCE module to the latest available version, 4.6.4. TinyMCE v4.6.4 provides backwards-compatibility for modified editor modules to prevent the loss of functionality. The TinyMCE3 module is now deprecated and will be removed in a future release.
+This moodule provides backwards compatibility for TinyMCE3 for clients
+that have modified the TinyMCE3 editor in Magento and don't want to 
+lose functionality.

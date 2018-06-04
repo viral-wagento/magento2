@@ -8,11 +8,6 @@ namespace Magento\Config\Test\Unit\Model\Config\Structure;
 use Magento\Config\Model\Config\Structure\ConcealInProductionConfigList;
 use Magento\Framework\App\State;
 
-/**
- * @deprecated Original class has changed the location
- * @see \Magento\Config\Model\Config\Structure\ElementVisibility\ConcealInProduction
- * @see \Magento\Config\Test\Unit\Model\Config\Structure\ElementVisibility\ConcealInProductionTest
- */
 class ConcealInProductionConfigListTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -38,9 +33,13 @@ class ConcealInProductionConfigListTest extends \PHPUnit\Framework\TestCase
             'third/path' => 'no',
             'third/path/field' => ConcealInProductionConfigList::DISABLED,
             'first/path/field' => 'no',
+            'fourth' => ConcealInProductionConfigList::HIDDEN,
+        ];
+        $exemptions = [
+            'fourth/path/value' => '',
         ];
 
-        $this->model = new ConcealInProductionConfigList($this->stateMock, $configs);
+        $this->model = new ConcealInProductionConfigList($this->stateMock, $configs, $exemptions);
     }
 
     /**
@@ -48,8 +47,6 @@ class ConcealInProductionConfigListTest extends \PHPUnit\Framework\TestCase
      * @param string $mageMode
      * @param bool $expectedResult
      * @dataProvider disabledDataProvider
-     *
-     * @deprecated
      */
     public function testIsDisabled($path, $mageMode, $expectedResult)
     {
@@ -61,8 +58,6 @@ class ConcealInProductionConfigListTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @return array
-     *
-     * @deprecated
      */
     public function disabledDataProvider()
     {
@@ -87,8 +82,6 @@ class ConcealInProductionConfigListTest extends \PHPUnit\Framework\TestCase
      * @param string $mageMode
      * @param bool $expectedResult
      * @dataProvider hiddenDataProvider
-     *
-     * @deprecated
      */
     public function testIsHidden($path, $mageMode, $expectedResult)
     {
@@ -100,8 +93,6 @@ class ConcealInProductionConfigListTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @return array
-     *
-     * @deprecated
      */
     public function hiddenDataProvider()
     {
@@ -109,8 +100,10 @@ class ConcealInProductionConfigListTest extends \PHPUnit\Framework\TestCase
             ['first/path', State::MODE_PRODUCTION, false],
             ['first/path', State::MODE_DEFAULT, false],
             ['some/path', State::MODE_PRODUCTION, false],
-            ['second/path', State::MODE_PRODUCTION, true],
+            ['second/path/field', State::MODE_PRODUCTION, true],
             ['second/path', State::MODE_DEVELOPER, false],
+            ['fourth/path/value', State::MODE_PRODUCTION, false],
+            ['fourth/path/test', State::MODE_PRODUCTION, true],
         ];
     }
 }

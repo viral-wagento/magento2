@@ -1570,7 +1570,7 @@ class Collection extends \Magento\Catalog\Model\ResourceModel\Collection\Abstrac
     }
 
     /**
-     * Add require tax percent flag for product collection
+     * Add requere tax percent flag for product collection
      *
      * @return $this
      */

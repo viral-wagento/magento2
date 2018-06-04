@@ -22,7 +22,6 @@ use Magento\Framework\Serialize\Serializer\Json;
  * @method int getThemeId()
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- * @SuppressWarnings(PHPMD.TooManyFields)
  * @since 100.0.2
  */
 class Instance extends \Magento\Framework\Model\AbstractModel
@@ -96,16 +95,6 @@ class Instance extends \Magento\Framework\Model\AbstractModel
      * @var string[]
      */
     protected $_relatedCacheTypes;
-
-    /**
-     * @var \Magento\Catalog\Model\Product\Type
-     */
-    protected $_productType;
-
-    /**
-     * @var \Magento\Widget\Model\Config\Reader
-     */
-    protected $_reader;
 
     /**
      * @var \Magento\Framework\Escaper

@@ -3,13 +3,10 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-declare(strict_types=1);
-
 namespace Magento\Tinymce3\Model\Config\Wysiwyg;
 
 /**
  * Class Config adds information about required css files for tinymce3 editor
- * @deprecated use \Magento\Cms\Model\Wysiwyg\DefaultConfigProvider instead
  */
 class Config implements \Magento\Framework\Data\Wysiwyg\ConfigProviderInterface
 {
@@ -30,7 +27,7 @@ class Config implements \Magento\Framework\Data\Wysiwyg\ConfigProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfig(\Magento\Framework\DataObject $config) : \Magento\Framework\DataObject
+    public function getConfig($config)
     {
         $config->addData([
             'popup_css' => $this->assetRepo->getUrl(

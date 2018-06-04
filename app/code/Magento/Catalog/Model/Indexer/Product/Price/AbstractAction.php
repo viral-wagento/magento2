@@ -336,10 +336,9 @@ abstract class AbstractAction
         if (!empty($notCompositeIds)) {
             $parentProductsTypes = $this->getParentProductsTypes($notCompositeIds);
             $productsTypes = array_merge_recursive($productsTypes, $parentProductsTypes);
-            foreach ($parentProductsTypes as $parentProductsIds) {
-                $compositeIds = $compositeIds + $parentProductsIds;
-                $changedIds = array_merge($changedIds, $parentProductsIds);
-            }
+            $parentProductsIds = array_keys($parentProductsTypes);
+            $compositeIds = $compositeIds + array_combine($parentProductsIds, $parentProductsIds);
+            $changedIds = array_merge($changedIds, $parentProductsIds);
         }
 
         if (!empty($compositeIds)) {
@@ -371,8 +370,7 @@ abstract class AbstractAction
             ['child_id']
         )->join(
             ['e' => $this->_defaultIndexerResource->getTable('catalog_product_entity')],
-            'e.' . $linkField . ' = parent_id',
-            []
+            'e.' . $linkField . ' = parent_id'
         )->where(
             'e.entity_id IN(?)',
             $parentIds

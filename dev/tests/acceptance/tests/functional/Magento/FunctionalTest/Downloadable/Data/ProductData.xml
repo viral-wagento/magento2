@@ -17,6 +17,5 @@
         <data key="quantity">100</data>
         <data key="weight">0</data>
         <data key="status">1</data>
-        <data key="urlKey" unique="suffix">downloadableproduct</data>
     </entity>
 </entities>

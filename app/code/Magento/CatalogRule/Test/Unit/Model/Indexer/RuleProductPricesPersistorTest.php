@@ -6,9 +6,6 @@
 
 namespace Magento\CatalogRule\Test\Unit\Model\Indexer;
 
-use Magento\Catalog\Model\ResourceModel\Indexer\ActiveTableSwitcher;
-use Magento\CatalogRule\Model\Indexer\IndexerTableSwapperInterface;
-
 class RuleProductPricesPersistorTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -27,14 +24,9 @@ class RuleProductPricesPersistorTest extends \PHPUnit\Framework\TestCase
     private $resourceMock;
 
     /**
-     * @var ActiveTableSwitcher|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Catalog\Model\ResourceModel\Indexer\ActiveTableSwitcher|\PHPUnit_Framework_MockObject_MockObject
      */
     private $activeTableSwitcherMock;
-
-    /**
-     * @var IndexerTableSwapperInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    private $tableSwapperMock;
 
     protected function setUp()
     {
@@ -44,17 +36,14 @@ class RuleProductPricesPersistorTest extends \PHPUnit\Framework\TestCase
         $this->resourceMock = $this->getMockBuilder(\Magento\Framework\App\ResourceConnection::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->activeTableSwitcherMock = $this->getMockBuilder(ActiveTableSwitcher::class)
-                ->disableOriginalConstructor()
-                ->getMock();
-        $this->tableSwapperMock = $this->getMockForAbstractClass(
-            IndexerTableSwapperInterface::class
-        );
+        $this->activeTableSwitcherMock =
+            $this->getMockBuilder(\Magento\Catalog\Model\ResourceModel\Indexer\ActiveTableSwitcher::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->model = new \Magento\CatalogRule\Model\Indexer\RuleProductPricesPersistor(
             $this->dateTimeMock,
             $this->resourceMock,
-            $this->activeTableSwitcherMock,
-            $this->tableSwapperMock
+            $this->activeTableSwitcherMock
         );
     }
 
@@ -75,8 +64,8 @@ class RuleProductPricesPersistorTest extends \PHPUnit\Framework\TestCase
         ];
         $tableName = 'catalogrule_product_price_replica';
 
-        $this->tableSwapperMock->expects($this->once())
-            ->method('getWorkingTableName')
+        $this->activeTableSwitcherMock->expects($this->once())
+            ->method('getAdditionalTableName')
             ->with('catalogrule_product_price')
             ->willReturn($tableName);
 
@@ -131,8 +120,8 @@ class RuleProductPricesPersistorTest extends \PHPUnit\Framework\TestCase
         ];
         $tableName = 'catalogrule_product_price_replica';
 
-        $this->tableSwapperMock->expects($this->once())
-            ->method('getWorkingTableName')
+        $this->activeTableSwitcherMock->expects($this->once())
+            ->method('getAdditionalTableName')
             ->with('catalogrule_product_price')
             ->willReturn($tableName);
 

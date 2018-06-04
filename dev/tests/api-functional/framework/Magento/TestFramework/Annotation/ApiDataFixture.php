@@ -100,7 +100,6 @@ class ApiDataFixture
      * Execute single fixture script
      *
      * @param string|array $fixture
-     * @throws \Throwable
      */
     protected function _applyOneFixture($fixture)
     {
@@ -111,13 +110,9 @@ class ApiDataFixture
                 require $fixture;
             }
         } catch (\Exception $e) {
-            throw new \Exception(
-                sprintf(
-                    "Exception occurred when running the %s fixture: \n%s",
-                    (\is_array($fixture) || is_scalar($fixture) ? json_encode($fixture) : 'callback'),
-                    $e->getMessage()
-                )
-            );
+            echo 'Exception occurred when running the '
+            . (is_array($fixture) || is_scalar($fixture) ? json_encode($fixture) : 'callback')
+            . ' fixture: ', PHP_EOL, $e;
         }
         $this->_appliedFixtures[] = $fixture;
     }

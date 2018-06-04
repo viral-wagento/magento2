@@ -149,7 +149,7 @@ class Http extends Request implements RequestContentInterface, RequestSafetyInte
                 return $this;
             }
 
-            $requestUri = $this->removeRepeatedSlashes($requestUri);
+            $requestUri = $this->removeRepitedSlashes($requestUri);
             $parsedRequestUri = explode('?', $requestUri, 2);
             $queryString = !isset($parsedRequestUri[1]) ? '' : '?' . $parsedRequestUri[1];
             $baseUrl = $this->getBaseUrl();
@@ -172,7 +172,7 @@ class Http extends Request implements RequestContentInterface, RequestSafetyInte
      * @param string $pathInfo
      * @return string
      */
-    private function removeRepeatedSlashes($pathInfo)
+    private function removeRepitedSlashes($pathInfo)
     {
         $firstChar = (string)substr($pathInfo, 0, 1);
         if ($firstChar == '/') {

@@ -16,8 +16,24 @@ define([
                 categoryUrlSuffix: '',
                 useCategoryPathInUrl: false,
                 product: '',
-                categoryItemSelector: '.category-item',
                 menuContainer: '[data-action="navigation"] > ul'
+            },
+
+            /** @inheritdoc */
+            _init: function () {
+                var menu,
+                    originalInit = this._super.bind(this);
+
+                // render breadcrumbs after navigation menu is loaded.
+                menu = $(this.options.menuContainer).data('mageMenu');
+
+                if (typeof menu === 'undefined') {
+                    $(this.options.menuContainer).on('menucreate', function () {
+                        originalInit();
+                    });
+                } else {
+                    this._super();
+                }
             },
 
             /** @inheritdoc */
@@ -72,10 +88,14 @@ define([
              * @private
              */
             _getCategoryCrumb: function (menuItem) {
+                var categoryId = /(\d+)/i.exec(menuItem.attr('id'))[0],
+                    categoryName = menuItem.text(),
+                    categoryUrl = menuItem.attr('href');
+
                 return {
-                    'name': 'category',
-                    'label': menuItem.text(),
-                    'link': menuItem.attr('href'),
+                    'name': 'category' + categoryId,
+                    'label': categoryName,
+                    'link': categoryUrl,
                     'title': ''
                 };
             },
@@ -143,10 +163,7 @@ define([
                     categoryMenuItem = null;
 
                 if (categoryUrl && menu.length) {
-                    categoryMenuItem = menu.find(
-                        this.options.categoryItemSelector +
-                        ' > a[href="' + categoryUrl + '"]'
-                    );
+                    categoryMenuItem = menu.find('a[href="' + categoryUrl + '"]');
                 }
 
                 return categoryMenuItem;

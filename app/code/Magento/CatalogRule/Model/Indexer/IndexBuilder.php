@@ -12,7 +12,6 @@ use Magento\CatalogRule\Model\Rule;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
 use Magento\CatalogRule\Model\Indexer\IndexBuilder\ProductLoader;
-use Magento\CatalogRule\Model\Indexer\IndexerTableSwapperInterface as TableSwapper;
 
 /**
  * @api
@@ -138,11 +137,6 @@ class IndexBuilder
     private $activeTableSwitcher;
 
     /**
-     * @var TableSwapper
-     */
-    private $tableSwapper;
-
-    /**
      * @var ProductLoader
      */
     private $productLoader;
@@ -166,7 +160,6 @@ class IndexBuilder
      * @param RuleProductPricesPersistor|null $pricesPersistor
      * @param \Magento\Catalog\Model\ResourceModel\Indexer\ActiveTableSwitcher|null $activeTableSwitcher
      * @param ProductLoader|null $productLoader
-     * @param TableSwapper|null $tableSwapper
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
@@ -187,8 +180,7 @@ class IndexBuilder
         ReindexRuleProductPrice $reindexRuleProductPrice = null,
         RuleProductPricesPersistor $pricesPersistor = null,
         \Magento\Catalog\Model\ResourceModel\Indexer\ActiveTableSwitcher $activeTableSwitcher = null,
-        ProductLoader $productLoader = null,
-        TableSwapper $tableSwapper = null
+        ProductLoader $productLoader = null
     ) {
         $this->resource = $resource;
         $this->connection = $resource->getConnection();
@@ -226,8 +218,6 @@ class IndexBuilder
         $this->productLoader = $productLoader ?? ObjectManager::getInstance()->get(
             ProductLoader::class
         );
-        $this->tableSwapper = $tableSwapper ??
-            ObjectManager::getInstance()->get(TableSwapper::class);
     }
 
     /**
@@ -306,6 +296,13 @@ class IndexBuilder
      */
     protected function doReindexFull()
     {
+        $this->connection->truncateTable(
+            $this->getTable($this->activeTableSwitcher->getAdditionalTableName('catalogrule_product'))
+        );
+        $this->connection->truncateTable(
+            $this->getTable($this->activeTableSwitcher->getAdditionalTableName('catalogrule_product_price'))
+        );
+
         foreach ($this->getAllRules() as $rule) {
             $this->reindexRuleProduct->execute($rule, $this->batchCount, true);
         }
@@ -313,7 +310,8 @@ class IndexBuilder
         $this->reindexRuleProductPrice->execute($this->batchCount, null, true);
         $this->reindexRuleGroupWebsite->execute(true);
 
-        $this->tableSwapper->swapIndexTables(
+        $this->activeTableSwitcher->switchTable(
+            $this->connection,
             [
                 $this->getTable('catalogrule_product'),
                 $this->getTable('catalogrule_product_price'),

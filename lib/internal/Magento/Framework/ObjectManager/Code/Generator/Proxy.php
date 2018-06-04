@@ -155,8 +155,7 @@ class Proxy extends \Magento\Framework\Code\Generator\EntityAbstract
         $parameterNames = [];
         $parameters = [];
         foreach ($method->getParameters() as $parameter) {
-            $name = $parameter->isVariadic() ? '... $' . $parameter->getName() : '$' . $parameter->getName();
-            $parameterNames[] = $name;
+            $parameterNames[] = '$' . $parameter->getName();
             $parameters[] = $this->_getMethodParameterInfo($parameter);
         }
 

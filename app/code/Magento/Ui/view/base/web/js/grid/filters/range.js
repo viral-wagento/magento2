@@ -27,8 +27,7 @@ define([
                 },
                 date: {
                     component: 'Magento_Ui/js/form/element/date',
-                    dateFormat: 'MM/dd/YYYY',
-                    shiftedValue: 'filter'
+                    dateFormat: 'MM/dd/YYYY'
                 },
                 text: {
                     component: 'Magento_Ui/js/form/element/abstract'

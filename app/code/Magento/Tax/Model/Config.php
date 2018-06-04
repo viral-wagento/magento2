@@ -832,12 +832,12 @@ class Config
      * If it necessary will be returned conversion type (minus or plus)
      *
      * @param null|int|string|Store $store
-     * @return bool|int
+     * @return bool
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      */
     public function needPriceConversion($store = null)
     {
-        $res = 0;
+        $res = false;
         $priceIncludesTax = $this->priceIncludesTax($store) || $this->getNeedUseShippingExcludeTax();
         if ($priceIncludesTax) {
             switch ($this->getPriceDisplayType($store)) {
@@ -845,7 +845,7 @@ class Config
                 case self::DISPLAY_TYPE_BOTH:
                     return self::PRICE_CONVERSION_MINUS;
                 case self::DISPLAY_TYPE_INCLUDING_TAX:
-                    $res = false;
+                    $res = true;
                     break;
                 default:
                     break;

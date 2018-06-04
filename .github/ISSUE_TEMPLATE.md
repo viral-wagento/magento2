@@ -1,35 +1,24 @@
-<!---
-    Thank you for contributing to Magento.
-    To help us process this issue we recommend that you add the following information:
-     - Summary of the issue,
-     - Information on your environment,
-     - Steps to reproduce,
-     - Expected and actual results,
-
-    Please also have a look at our guidelines article before adding a new issue https://github.com/magento/magento2/wiki/Issue-reporting-guidelines
--->
+<!--- Provide a general summary of the issue in the Title above -->
+<!--- Before adding new issues, please, check this article https://github.com/magento/magento2/wiki/Issue-reporting-guidelines-->
 
 ### Preconditions
-<!---
-    Please provide as detailed information about your environment as possible.
-    For example Magento version, tag, HEAD, PHP & MySQL version, etc..
--->
+<!--- Provide a more detailed information of environment you use -->
+<!--- Magento version, tag, HEAD, etc., PHP & MySQL version, etc.. -->
 1. 
 2. 
 
 ### Steps to reproduce
-<!---
-    It is important to provide a set of clear steps to reproduce this bug.
-    If relevant please include code samples
--->
+<!--- Provide a set of unambiguous steps to reproduce this bug include code, if relevant  -->
 1. 
 2. 
 3. 
 
 ### Expected result
 <!--- Tell us what should happen -->
-1. [Screenshots, logs or description]
+1. 
 
 ### Actual result
 <!--- Tell us what happens instead -->
-1. [Screenshots, logs or description]
+1. [Screenshot, logs]
+
+<!--- (This may be platform independent comment) -->

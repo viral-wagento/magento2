@@ -220,7 +220,6 @@ define([
          */
         _updateItemQtyAfter: function (elem) {
             this._hideItemButton(elem);
-            $(document).trigger('ajax:updateItemQty');
         },
 
         /**

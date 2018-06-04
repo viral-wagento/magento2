@@ -137,7 +137,7 @@ define([
                 },
                 onSuccess: function (transport) {
                     if (this._processSuccess(transport)) {
-                        jQuery(chooser).html(transport.responseText);
+                        $(chooser).update(transport.responseText);
                         this.showChooserLoaded(chooser, transport);
                         jQuery(chooser).trigger('contentUpdated');
                     }

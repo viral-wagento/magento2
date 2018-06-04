@@ -3,13 +3,10 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-declare(strict_types=1);
-
 namespace Magento\Tinymce3\Model\Config\Widget;
 
 /**
  * Class Config adds widget plugin information required for tinymce3 editor
- * @deprecated use \Magento\Widget\Model\Widget\Config instead
  */
 class Config implements \Magento\Framework\Data\Wysiwyg\ConfigProviderInterface
 {
@@ -38,7 +35,7 @@ class Config implements \Magento\Framework\Data\Wysiwyg\ConfigProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfig(\Magento\Framework\DataObject $config) : \Magento\Framework\DataObject
+    public function getConfig($config)
     {
         $settings = [
             'widget_plugin_src' => $this->getWysiwygJsPluginSrc(),
@@ -55,7 +52,7 @@ class Config implements \Magento\Framework\Data\Wysiwyg\ConfigProviderInterface
      *
      * @return string
      */
-    private function getWysiwygJsPluginSrc() : string
+    private function getWysiwygJsPluginSrc()
     {
         $editorPluginJs = 'Magento_Tinymce3::tiny_mce/plugins/magentowidget/editor_plugin.js';
         $result = $this->assetRepo->getUrl($editorPluginJs);

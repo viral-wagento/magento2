@@ -14,7 +14,6 @@ use Magento\Quote\Api\Data\PaymentInterface;
 use Magento\Quote\Model\Quote\Address;
 use Magento\Quote\Model\Quote\Address\Total as AddressTotal;
 use Magento\Sales\Model\Status;
-use Magento\Framework\App\ObjectManager;
 
 /**
  * Quote model
@@ -355,11 +354,6 @@ class Quote extends AbstractExtensibleModel implements \Magento\Quote\Api\Data\C
     protected $shippingAddressesItems;
 
     /**
-     * @var \Magento\Sales\Model\OrderIncrementIdChecker
-     */
-    private $orderIncrementIdChecker;
-
-    /**
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Framework\Api\ExtensionAttributesFactory $extensionFactory
@@ -400,7 +394,6 @@ class Quote extends AbstractExtensibleModel implements \Magento\Quote\Api\Data\C
      * @param \Magento\Framework\Model\ResourceModel\AbstractResource|null $resource
      * @param \Magento\Framework\Data\Collection\AbstractDb|null $resourceCollection
      * @param array $data
-     * @param \Magento\Sales\Model\OrderIncrementIdChecker|null $orderIncrementIdChecker
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
@@ -443,8 +436,7 @@ class Quote extends AbstractExtensibleModel implements \Magento\Quote\Api\Data\C
         \Magento\Quote\Model\ShippingAssignmentFactory $shippingAssignmentFactory,
         \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
-        array $data = [],
-        \Magento\Sales\Model\OrderIncrementIdChecker $orderIncrementIdChecker = null
+        array $data = []
     ) {
         $this->quoteValidator = $quoteValidator;
         $this->_catalogProduct = $catalogProduct;
@@ -479,8 +471,6 @@ class Quote extends AbstractExtensibleModel implements \Magento\Quote\Api\Data\C
         $this->totalsReader = $totalsReader;
         $this->shippingFactory = $shippingFactory;
         $this->shippingAssignmentFactory = $shippingAssignmentFactory;
-        $this->orderIncrementIdChecker = $orderIncrementIdChecker ?: ObjectManager::getInstance()
-            ->get(\Magento\Sales\Model\OrderIncrementIdChecker::class);
         parent::__construct(
             $context,
             $registry,
@@ -2194,7 +2184,7 @@ class Quote extends AbstractExtensibleModel implements \Magento\Quote\Api\Data\C
         } else {
             //checking if reserved order id was already used for some order
             //if yes reserving new one if not using old one
-            if ($this->orderIncrementIdChecker->isIncrementIdUsed($this->getReservedOrderId())) {
+            if ($this->_getResource()->isOrderIncrementIdUsed($this->getReservedOrderId())) {
                 $this->setReservedOrderId($this->_getResource()->getReservedOrderId($this));
             }
         }

@@ -174,7 +174,7 @@ class NotificationRenderer
      * correct HTML format.
      *
      * @param string $content
-     * @return string
+     * @returns string
      */
     private function formatContentWithLinks($content)
     {

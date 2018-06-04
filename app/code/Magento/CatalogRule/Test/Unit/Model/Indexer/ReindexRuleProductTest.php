@@ -6,9 +6,6 @@
 
 namespace Magento\CatalogRule\Test\Unit\Model\Indexer;
 
-use Magento\Catalog\Model\ResourceModel\Indexer\ActiveTableSwitcher;
-use Magento\CatalogRule\Model\Indexer\IndexerTableSwapperInterface;
-
 class ReindexRuleProductTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -22,30 +19,22 @@ class ReindexRuleProductTest extends \PHPUnit\Framework\TestCase
     private $resourceMock;
 
     /**
-     * @var ActiveTableSwitcher|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Catalog\Model\ResourceModel\Indexer\ActiveTableSwitcher|\PHPUnit_Framework_MockObject_MockObject
      */
     private $activeTableSwitcherMock;
-
-    /**
-     * @var IndexerTableSwapperInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    private $tableSwapperMock;
 
     protected function setUp()
     {
         $this->resourceMock = $this->getMockBuilder(\Magento\Framework\App\ResourceConnection::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->activeTableSwitcherMock = $this->getMockBuilder(ActiveTableSwitcher::class)
-                ->disableOriginalConstructor()
-                ->getMock();
-        $this->tableSwapperMock = $this->getMockForAbstractClass(
-            IndexerTableSwapperInterface::class
-        );
+        $this->activeTableSwitcherMock =
+            $this->getMockBuilder(\Magento\Catalog\Model\ResourceModel\Indexer\ActiveTableSwitcher::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->model = new \Magento\CatalogRule\Model\Indexer\ReindexRuleProduct(
             $this->resourceMock,
-            $this->activeTableSwitcherMock,
-            $this->tableSwapperMock
+            $this->activeTableSwitcherMock
         );
     }
 
@@ -82,8 +71,8 @@ class ReindexRuleProductTest extends \PHPUnit\Framework\TestCase
         $ruleMock->expects($this->exactly(2))->method('getWebsiteIds')->willReturn(1);
         $ruleMock->expects($this->once())->method('getMatchingProductIds')->willReturn($productIds);
 
-        $this->tableSwapperMock->expects($this->once())
-            ->method('getWorkingTableName')
+        $this->activeTableSwitcherMock->expects($this->once())
+            ->method('getAdditionalTableName')
             ->with('catalogrule_product')
             ->willReturn('catalogrule_product_replica');
 

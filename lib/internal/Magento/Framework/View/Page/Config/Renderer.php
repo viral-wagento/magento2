@@ -136,12 +136,6 @@ class Renderer implements RendererInterface
     protected function processMetadataContent($name, $content)
     {
         $method = 'get' . $this->string->upperCaseWords($name, '_', '');
-        if ($name === 'title') {
-            if (!$content) {
-                $content = $this->escaper->escapeHtml($this->pageConfig->$method()->get());
-            }
-            return $content;
-        }
         if (method_exists($this->pageConfig, $method)) {
             $content = $this->pageConfig->$method();
         }

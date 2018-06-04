@@ -3,8 +3,6 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-
-declare(strict_types=1);
 namespace Magento\Tinymce3\Model\Plugin;
 
 use Magento\Tinymce3\Model\Config\Source\Wysiwyg\Editor;
@@ -46,16 +44,16 @@ class Widget
 
     /**
      * @param \Magento\Widget\Model\Widget $subject
-     * @param \Closure $proceed
-     * @param string $type
+     * @param $proceed
+     * @param $type
      * @return string
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aroundGetPlaceholderImageUrl(
         \Magento\Widget\Model\Widget $subject,
-        \Closure $proceed,
-        string $type
-    ) : string {
+        $proceed,
+        $type
+    ) {
         if ($this->activeEditor->getWysiwygAdapterPath() !== Editor::WYSIWYG_EDITOR_CONFIG_VALUE) {
             return $proceed($type);
         }

@@ -15,9 +15,9 @@ use Magento\Framework\Pricing\PriceCurrencyInterface;
  */
 class Discount extends \Magento\Sales\Block\Adminhtml\Order\Create\Totals\DefaultTotals
 {
-    /**
-     * @var \Magento\Tax\Model\Config
-     */
+    //protected $_template = 'tax/checkout/subtotal.phtml';
+
+    //protected $_template = 'tax/checkout/subtotal.phtml';
     protected $_taxConfig;
 
     /**

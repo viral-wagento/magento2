@@ -159,28 +159,6 @@ class Data
     }
 
     /**
-     * Check is media attribute available
-     *
-     * @param ModelProduct $product
-     * @param string $attributeCode
-     * @return bool
-     */
-    private function isMediaAvailable(ModelProduct $product, string $attributeCode): bool
-    {
-        $isAvailable = false;
-
-        $mediaGallery = $product->getMediaGalleryEntries();
-        foreach ($mediaGallery as $mediaEntry) {
-            if (in_array($attributeCode, $mediaEntry->getTypes(), true)) {
-                $isAvailable = !$mediaEntry->isDisabled();
-                break;
-            }
-        }
-
-        return $isAvailable;
-    }
-
-    /**
      * @param string $attributeCode swatch_image|image
      * @param ModelProduct $configurableProduct
      * @param array $requiredAttributes
@@ -192,8 +170,8 @@ class Data
             $usedProducts = $configurableProduct->getTypeInstance()->getUsedProducts($configurableProduct);
 
             foreach ($usedProducts as $simpleProduct) {
-                if (!array_diff_assoc($requiredAttributes, $simpleProduct->getData())
-                    && $this->isMediaAvailable($simpleProduct, $attributeCode)
+                if (!in_array($simpleProduct->getData($attributeCode), [null, self::EMPTY_IMAGE_VALUE], true)
+                    && !array_diff_assoc($requiredAttributes, $simpleProduct->getData())
                 ) {
                     return $simpleProduct;
                 }
@@ -312,30 +290,45 @@ class Data
      */
     public function getProductMediaGallery(ModelProduct $product)
     {
-        $baseImage = null;
-        $gallery = [];
-
-        $mediaGallery = $product->getMediaGalleryEntries();
-        foreach ($mediaGallery as $mediaEntry) {
-            if ($mediaEntry->isDisabled()) {
-                continue;
+        if (!in_array($product->getData('image'), [null, self::EMPTY_IMAGE_VALUE], true)) {
+            $baseImage = $product->getData('image');
+        } else {
+            $productMediaAttributes = array_filter($product->getMediaAttributeValues(), function ($value) {
+                return $value !== self::EMPTY_IMAGE_VALUE && $value !== null;
+            });
+            foreach ($productMediaAttributes as $attributeCode => $value) {
+                if ($attributeCode !== 'swatch_image') {
+                    $baseImage = (string)$value;
+                    break;
+                }
             }
-
-            if (in_array('image', $mediaEntry->getTypes(), true) || !$baseImage) {
-                $baseImage = $mediaEntry->getFile();
-            }
-
-            $gallery[$mediaEntry->getId()] = $this->getAllSizeImages($mediaEntry->getFile());
         }
 
-        if (!$baseImage) {
+        if (empty($baseImage)) {
             return [];
         }
 
         $resultGallery = $this->getAllSizeImages($baseImage);
-        $resultGallery['gallery'] = $gallery;
+        $resultGallery['gallery'] = $this->getGalleryImages($product);
 
         return $resultGallery;
+    }
+
+    /**
+     * @param ModelProduct $product
+     * @return array
+     */
+    private function getGalleryImages(ModelProduct $product)
+    {
+        //TODO: remove after fix MAGETWO-48040
+        $product = $this->productRepository->getById($product->getId());
+
+        $result = [];
+        $mediaGallery = $product->getMediaGalleryImages();
+        foreach ($mediaGallery as $media) {
+            $result[$media->getData('value_id')] = $this->getAllSizeImages($media->getData('file'));
+        }
+        return $result;
     }
 
     /**
@@ -504,7 +497,9 @@ class Data
      */
     public function isProductHasSwatch(Product $product)
     {
-        return !empty($this->getSwatchAttributes($product));
+        $swatchAttributes = $this->getSwatchAttributes($product);
+
+        return count($swatchAttributes) > 0;
     }
 
     /**

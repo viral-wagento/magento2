@@ -20,22 +20,22 @@ use InvalidArgumentException;
 class InstantPurchaseOption
 {
     /**
-     * @var PaymentTokenInterface|null
+     * @var PaymentTokenInterface
      */
     private $paymentToken;
 
     /**
-     * @var Address|null
+     * @var AddressIn
      */
     private $shippingAddress;
 
     /**
-     * @var Address|null
+     * @var Address
      */
     private $billingAddress;
 
     /**
-     * @var ShippingMethodInterface|null
+     * @var ShippingMethodInterface
      */
     private $shippingMethod;
 

@@ -303,9 +303,6 @@ class SalesSetup extends EavSetup
         return $this->encryptor;
     }
 
-    /**
-     * @return \Magento\Framework\DB\Adapter\AdapterInterface
-     */
     public function getConnection()
     {
         return $this->getSetup()->getConnection(self::$connectionName);

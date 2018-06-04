@@ -14,7 +14,6 @@ use Magento\Framework\GraphQl\Query\Resolver\ValueFactory;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\UrlRewrite\Model\UrlFinderInterface;
-use Magento\UrlRewriteGraphQl\Model\Resolver\UrlRewrite\CustomUrlLocatorInterface;
 
 /**
  * UrlRewrite field resolver, used for GraphQL request processing.
@@ -35,28 +34,20 @@ class UrlRewrite implements ResolverInterface
      * @var ValueFactory
      */
     private $valueFactory;
-    
-    /**
-     * @var CustomUrlLocatorInterface
-     */
-    private $customUrlLocator;
 
     /**
      * @param UrlFinderInterface $urlFinder
      * @param StoreManagerInterface $storeManager
      * @param ValueFactory $valueFactory
-     * @param CustomUrlLocatorInterface $customUrlLocator
      */
     public function __construct(
         UrlFinderInterface $urlFinder,
         StoreManagerInterface $storeManager,
-        ValueFactory $valueFactory,
-        CustomUrlLocatorInterface $customUrlLocator
+        ValueFactory $valueFactory
     ) {
         $this->urlFinder = $urlFinder;
         $this->storeManager = $storeManager;
         $this->valueFactory = $valueFactory;
-        $this->customUrlLocator = $customUrlLocator;
     }
 
     /**
@@ -72,15 +63,8 @@ class UrlRewrite implements ResolverInterface
         $result = function () {
             return null;
         };
-        
         if (isset($args['url'])) {
-            $url = $args['url'];
-            if (substr($url, 0, 1) === '/' && $url !== '/') {
-                $url = ltrim($url, '/');
-            }
-            $customUrl = $this->customUrlLocator->locateUrl($url);
-            $url = $customUrl ?: $url;
-            $urlRewrite = $this->findCanonicalUrl($url);
+            $urlRewrite = $this->findCanonicalUrl($args['url']);
             if ($urlRewrite) {
                 $urlRewriteReturnArray = [
                     'id' => $urlRewrite->getEntityId(),
@@ -112,7 +96,6 @@ class UrlRewrite implements ResolverInterface
         if (!$urlRewrite) {
             $urlRewrite = $this->findUrlFromTargetPath($requestPath);
         }
-        
         return $urlRewrite;
     }
 

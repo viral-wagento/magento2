@@ -78,10 +78,6 @@ abstract class AbstractAggregateException extends LocalizedException implements 
         return $this;
     }
 
-    /**
-     * @param LocalizedException $exception
-     * @return $this
-     */
     public function addException(LocalizedException $exception)
     {
         $this->addErrorCalls++;

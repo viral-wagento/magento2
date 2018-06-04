@@ -117,7 +117,6 @@ class ItemRepository implements OrderItemRepositoryInterface
             }
 
             $this->addProductOption($orderItem);
-            $this->addParentItem($orderItem);
             $this->registry[$id] = $orderItem;
         }
         return $this->registry[$id];
@@ -215,20 +214,6 @@ class ItemRepository implements OrderItemRepositoryInterface
         }
 
         return $this;
-    }
-
-    /**
-     * Set parent item.
-     *
-     * @param OrderItemInterface $orderItem
-     * @throws InputException
-     * @throws NoSuchEntityException
-     */
-    private function addParentItem(OrderItemInterface $orderItem)
-    {
-        if ($parentId = $orderItem->getParentItemId()) {
-            $orderItem->setParentItem($this->get($parentId));
-        }
     }
 
     /**

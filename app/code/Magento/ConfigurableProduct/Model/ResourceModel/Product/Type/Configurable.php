@@ -189,6 +189,7 @@ class Configurable extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     public function getParentIdsByChild($childId)
     {
+        $parentIds = [];
         $select = $this->getConnection()
             ->select()
             ->from(['l' => $this->getMainTable()], [])
@@ -197,7 +198,10 @@ class Configurable extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
                 'e.' . $this->optionProvider->getProductEntityLinkField() . ' = l.parent_id',
                 ['e.entity_id']
             )->where('l.product_id IN(?)', $childId);
-        $parentIds = $this->getConnection()->fetchCol($select);
+
+        foreach ($this->getConnection()->fetchAll($select) as $row) {
+            $parentIds[] = $row['entity_id'];
+        }
 
         return $parentIds;
     }

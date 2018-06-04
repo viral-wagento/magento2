@@ -224,14 +224,6 @@ define([
             return this;
         },
 
-        /** @inheritdoc */
-        destroy: function () {
-            if (this.dnd()) {
-                this.dnd().destroy();
-            }
-            this._super();
-        },
-
         /**
          * Calls 'initObservable' of parent
          *
@@ -721,8 +713,6 @@ define([
          * @param {Number} page - current page
          */
         changePage: function (page) {
-            this.clear();
-
             if (page === 1 && !this.recordData().length) {
                 return false;
             }
@@ -764,6 +754,7 @@ define([
          * Change page to next
          */
         nextPage: function () {
+            this.clear();
             this.currentPage(this.currentPage() + 1);
         },
 
@@ -771,6 +762,7 @@ define([
          * Change page to previous
          */
         previousPage: function () {
+            this.clear();
             this.currentPage(this.currentPage() - 1);
         },
 

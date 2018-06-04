@@ -3,9 +3,6 @@
  * See COPYING.txt for license details.
  */
 
-/**
- * @deprecated use lib/web/mage/adminhtml/wysiwyg/tiny_mce/tinymce4Adapter.js instead
- */
 /* global varienGlobalEvents, tinyMceEditors, MediabrowserUtility, closeEditorPopup, Base64 */
 /* eslint-disable strict */
 define([

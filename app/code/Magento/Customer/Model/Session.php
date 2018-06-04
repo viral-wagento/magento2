@@ -555,7 +555,7 @@ class Session extends \Magento\Framework\Session\SessionManager
     }
 
     /**
-     * Reset core session hosts after resetting session ID
+     * Reset core session hosts after reseting session ID
      *
      * @return $this
      */
