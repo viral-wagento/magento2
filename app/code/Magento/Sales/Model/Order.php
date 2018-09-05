@@ -614,8 +614,10 @@ class Order extends AbstractModel implements EntityInterface, OrderInterface
         if ($this->hasForcedCanCreditmemo()) {
             return $this->getForcedCanCreditmemo();
         }
+
         $isOnHoldReview = $this->canUnhold() || $this->isPaymentReview();
         $isOrderCanceled = $this->isCanceled() || $this->getState() === self::STATE_CLOSED;
+
         if ($isOnHoldReview || $isOrderCanceled) {
             return false;
         }
@@ -628,10 +630,13 @@ class Order extends AbstractModel implements EntityInterface, OrderInterface
         if (abs($this->getGrandTotal()) < .0001) {
             return $this->canCreditmemoforZeroTotal($totalRefunded);
         }
+
         $isRefundZero = abs($totalRefunded) < .0001;
+
         // Case when Adjustment Fee (adjustment_negative) has been used for first creditmemo
         $hasAdjustmentFee = abs($totalRefunded - $this->getAdjustmentNegative()) < .0001;
         $hasActinFlag = $this->getActionFlag(self::ACTION_FLAG_EDIT) === false;
+
         if ($isRefundZero || $hasAdjustmentFee || $hasActinFlag) {
             return false;
         }
@@ -646,16 +651,22 @@ class Order extends AbstractModel implements EntityInterface, OrderInterface
     public function canCreditmemoforZeroTotal($totalRefunded)
     {
         $totalPaid = $this->getTotalPaid();
+
         //check if total paid is less than grandtotal
         $checkAmtTotalPaid = $totalPaid <= $this->getGrandTotal();
+
         //case when amount is due for invoice
         $dueAmountCondition = $this->canInvoice() && ($checkAmtTotalPaid);
+
         //case when paid amount is refunded and order has creditmemo created
         $paidAmtIsRefunded = $this->getTotalRefunded() == $totalPaid && count($this->getCreditmemosCollection()) > 0;
+
         $state1 = $dueAmountCondition || $paidAmtIsRefunded;
+
         // Case when Adjustment Fee (adjustment_negative) has been used for first creditmemo
         $state2 = !($checkAmtTotalPaid) &&
             abs($totalRefunded - $this->getAdjustmentNegative()) < .0001;
+
         if ($state1 || $state2) {
             return false;
         }

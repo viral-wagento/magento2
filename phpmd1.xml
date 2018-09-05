@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pmd version="@project.version@" timestamp="2018-08-29T08:15:04+00:00">
+  <file name="/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php">
+    <violation beginline="805" endline="805" rule="BooleanArgumentFlag" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#booleanargumentflag" priority="1">
+      The method _canReorder has a boolean flag argument $ignoreSalable, which is a certain sign of a Single Responsibility Principle violation.
+    </violation>
+    <violation beginline="1017" endline="1017" rule="BooleanArgumentFlag" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#booleanargumentflag" priority="1">
+      The method addStatusToHistory has a boolean flag argument $isCustomerNotified, which is a certain sign of a Single Responsibility Principle violation.
+    </violation>
+    <violation beginline="1033" endline="1033" rule="BooleanArgumentFlag" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#booleanargumentflag" priority="1">
+      The method addStatusHistoryComment has a boolean flag argument $status, which is a certain sign of a Single Responsibility Principle violation.
+    </violation>
+    <violation beginline="1047" endline="1047" rule="BooleanArgumentFlag" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#booleanargumentflag" priority="1">
+      The method addCommentToStatusHistory has a boolean flag argument $status, which is a certain sign of a Single Responsibility Principle violation.
+    </violation>
+    <violation beginline="1047" endline="1047" rule="BooleanArgumentFlag" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#booleanargumentflag" priority="1">
+      The method addCommentToStatusHistory has a boolean flag argument $isVisibleOnFront, which is a certain sign of a Single Responsibility Principle violation.
+    </violation>
+    <violation beginline="1053" endline="1055" rule="ElseExpression" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#elseexpression" priority="1">
+      The method addCommentToStatusHistory uses an else expression. Else is never necessary and you can simplify the code to work without else.
+    </violation>
+    <violation beginline="1176" endline="1176" rule="BooleanArgumentFlag" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#booleanargumentflag" priority="1">
+      The method registerCancellation has a boolean flag argument $graceful, which is a certain sign of a Single Responsibility Principle violation.
+    </violation>
+    <violation beginline="1184" endline="1186" rule="ElseExpression" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#elseexpression" priority="1">
+      The method registerCancellation uses an else expression. Else is never necessary and you can simplify the code to work without else.
+    </violation>
+    <violation beginline="1236" endline="1236" rule="BooleanArgumentFlag" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#booleanargumentflag" priority="1">
+      The method getShippingMethod has a boolean flag argument $asObject, which is a certain sign of a Single Responsibility Principle violation.
+    </violation>
+    <violation beginline="1241" endline="1244" rule="ElseExpression" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#elseexpression" priority="1">
+      The method getShippingMethod uses an else expression. Else is never necessary and you can simplify the code to work without else.
+    </violation>
+    <violation beginline="1296" endline="1296" rule="BooleanArgumentFlag" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#booleanargumentflag" priority="1">
+      The method getItemsCollection has a boolean flag argument $nonChildrenOnly, which is a certain sign of a Single Responsibility Principle violation.
+    </violation>
+    <violation beginline="1333" endline="1333" rule="BooleanArgumentFlag" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#booleanargumentflag" priority="1">
+      The method _getItemsRandomCollection has a boolean flag argument $nonChildrenOnly, which is a certain sign of a Single Responsibility Principle violation.
+    </violation>
+    <violation beginline="1613" endline="1613" rule="BooleanArgumentFlag" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#booleanargumentflag" priority="1">
+      The method formatPrice has a boolean flag argument $addBrackets, which is a certain sign of a Single Responsibility Principle violation.
+    </violation>
+    <violation beginline="1624" endline="1624" rule="BooleanArgumentFlag" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#booleanargumentflag" priority="1">
+      The method formatPricePrecision has a boolean flag argument $addBrackets, which is a certain sign of a Single Responsibility Principle violation.
+    </violation>
+    <violation beginline="1761" endline="1763" rule="ElseExpression" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#elseexpression" priority="1">
+      The method getShipmentsCollection uses an else expression. Else is never necessary and you can simplify the code to work without else.
+    </violation>
+    <violation beginline="1778" endline="1780" rule="ElseExpression" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#elseexpression" priority="1">
+      The method getCreditmemosCollection uses an else expression. Else is never necessary and you can simplify the code to work without else.
+    </violation>
+    <violation beginline="1851" endline="1853" rule="ElseExpression" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#elseexpression" priority="1">
+      The method getCustomerName uses an else expression. Else is never necessary and you can simplify the code to work without else.
+    </violation>
+  </file>
+</pmd>

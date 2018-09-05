@@ -1,0 +1,17 @@
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:805	The method _canReorder has a boolean flag argument $ignoreSalable, which is a certain sign of a Single Responsibility Principle violation.
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:1017	The method addStatusToHistory has a boolean flag argument $isCustomerNotified, which is a certain sign of a Single Responsibility Principle violation.
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:1033	The method addStatusHistoryComment has a boolean flag argument $status, which is a certain sign of a Single Responsibility Principle violation.
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:1047	The method addCommentToStatusHistory has a boolean flag argument $status, which is a certain sign of a Single Responsibility Principle violation.
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:1047	The method addCommentToStatusHistory has a boolean flag argument $isVisibleOnFront, which is a certain sign of a Single Responsibility Principle violation.
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:1053	The method addCommentToStatusHistory uses an else expression. Else is never necessary and you can simplify the code to work without else.
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:1176	The method registerCancellation has a boolean flag argument $graceful, which is a certain sign of a Single Responsibility Principle violation.
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:1184	The method registerCancellation uses an else expression. Else is never necessary and you can simplify the code to work without else.
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:1236	The method getShippingMethod has a boolean flag argument $asObject, which is a certain sign of a Single Responsibility Principle violation.
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:1241	The method getShippingMethod uses an else expression. Else is never necessary and you can simplify the code to work without else.
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:1296	The method getItemsCollection has a boolean flag argument $nonChildrenOnly, which is a certain sign of a Single Responsibility Principle violation.
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:1333	The method _getItemsRandomCollection has a boolean flag argument $nonChildrenOnly, which is a certain sign of a Single Responsibility Principle violation.
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:1613	The method formatPrice has a boolean flag argument $addBrackets, which is a certain sign of a Single Responsibility Principle violation.
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:1624	The method formatPricePrecision has a boolean flag argument $addBrackets, which is a certain sign of a Single Responsibility Principle violation.
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:1761	The method getShipmentsCollection uses an else expression. Else is never necessary and you can simplify the code to work without else.
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:1778	The method getCreditmemosCollection uses an else expression. Else is never necessary and you can simplify the code to work without else.
+/var/www/html/magento2/app/code/Magento/Sales/Model/Order.php:1851	The method getCustomerName uses an else expression. Else is never necessary and you can simplify the code to work without else.
